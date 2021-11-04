@@ -1,4 +1,4 @@
-import react from "react";
+import React from "react";
 
 const Loading = () => {
   return (
@@ -7,3 +7,5 @@ const Loading = () => {
     </div>
   );
 };
+
+export { Loading };

@@ -1,16 +1,42 @@
 // App.js
-import React, { Component } from "react";
-// import { Loading } from "./components/loading";
+import React, { Component, useState, useEffect } from "react";
+import { Loading } from "./components/Loading";
 import { Tours } from "./components/Tours";
-const url = "https://course-api.netlify.app/api/react-tours-project";
+const url = "https://course-api.com/react-tours-project";
 
 function App() {
   const [loading, setLoading] = useState(true);
   const [tours, setTours] = useState([]);
+
+  const fetchTours = async () => {
+    setLoading(true);
+
+    try {
+      const response = await fetch(url);
+      const tours = await response.json();
+      setLoading(false);
+      setTours(tours);
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTours();
+  }, []);
+
+  if (loading) {
+    return (
+      <main>
+        <Loading />
+      </main>
+    );
+  }
   return (
-    <>
-      <h2>tours project</h2>
-    </>
+    <main>
+      <Tours />
+    </main>
   );
 }
 
